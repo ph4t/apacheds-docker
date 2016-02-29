@@ -18,7 +18,7 @@ RUN tar vxzf /tmp/apacheds-${APACHEDS_VERSION}.tar.gz -C /opt/ && \
 ADD run.sh /run.sh
 
 RUN adduser -S apacheds -h /opt/apacheds -H && \
-	chown -R ${APACHEDS_USER} /opt/apacheds && \
+	chown -R ${APACHEDS_USER} /opt/apacheds/ && \
 	chown ${APACHEDS_USER} /run.sh && \
     chmod u+rx /run.sh
 	
