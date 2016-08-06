@@ -8,10 +8,12 @@ ENV APACHEDS_INSTANCE default
 ENV APACHEDS_USER apacheds
 ENV APACHEDS_GROUP apacheds
 
-ADD http://www.eu.apache.org/dist/directory/apacheds/dist/${APACHEDS_VERSION}/apacheds-${APACHEDS_VERSION}.tar.gz /tmp/
-RUN cd /tmp && echo "$APACHEDS_MD5  apacheds-${APACHEDS_VERSION}.tar.gz" > MD5SUM && md5sum -c MD5SUM
+RUN cd /tmp/ && \
+    wget http://www.eu.apache.org/dist/directory/apacheds/dist/${APACHEDS_VERSION}/apacheds-${APACHEDS_VERSION}.tar.gz && \
+	echo "$APACHEDS_MD5  apacheds-${APACHEDS_VERSION}.tar.gz" > MD5SUM && md5sum -c MD5SUM
 
-RUN tar vxzf /tmp/apacheds-${APACHEDS_VERSION}.tar.gz -C /opt/ && \
+RUN mkdir /opt && \
+    tar vxzf /tmp/apacheds-${APACHEDS_VERSION}.tar.gz -C /opt/ && \
     ln -s /opt/apacheds-${APACHEDS_VERSION} /opt/apacheds && \
 	rm /tmp/apacheds*
 
