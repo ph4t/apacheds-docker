@@ -1,14 +1,14 @@
-FROM anapsix/alpine-java:7
+FROM java:7-alpine
 MAINTAINER Michael Riedmann @ https://www.github.com/mriedmann
 
-ENV APACHEDS_VERSION 2.0.0-M21
-ENV APACHEDS_MD5 489bbdf106ed1b44f54830d93db8aba2
+ENV APACHEDS_VERSION 2.0.0-M23
+ENV APACHEDS_MD5 1b380b7eace07e338578a66a4c625d61
 ENV APACHEDS_DATA /opt/apacheds/instances
 ENV APACHEDS_INSTANCE default
 ENV APACHEDS_USER apacheds
 ENV APACHEDS_GROUP apacheds
 
-ADD http://www.eu.apache.org/dist//directory/apacheds/dist/2.0.0-M21/apacheds-${APACHEDS_VERSION}.tar.gz /tmp/
+ADD http://www.eu.apache.org/dist/directory/apacheds/dist/${APACHEDS_VERSION}/apacheds-${APACHEDS_VERSION}.tar.gz /tmp/
 RUN cd /tmp && echo "$APACHEDS_MD5  apacheds-${APACHEDS_VERSION}.tar.gz" > MD5SUM && md5sum -c MD5SUM
 
 RUN tar vxzf /tmp/apacheds-${APACHEDS_VERSION}.tar.gz -C /opt/ && \
