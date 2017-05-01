@@ -7,7 +7,7 @@ ENV APACHEDS_MD5 1b380b7eace07e338578a66a4c625d61
 ENV APACHEDS_DATA /opt/apacheds/instances
 ENV APACHEDS_INSTANCE default
 ENV APACHEDS_USER apacheds
-ENV APACHEDS_GROUP apachedsdocker build
+ENV APACHEDS_GROUP apachedsdocker build #todo: not used anywhere
 
 RUN apk --no-cache add bash tar sudo
 
@@ -16,6 +16,7 @@ RUN cd /tmp/ && \
 	echo "$APACHEDS_MD5  apacheds-${APACHEDS_VERSION}.tar.gz" > MD5SUM && md5sum -c MD5SUM && \
 	mkdir -p /opt/apacheds && \
 	mkdir -p /tmpl && \
+	mkdir -p /bootstrap && \
 	cd /opt/apacheds/ && \
     tar --strip-components=1 -vxzf /tmp/apacheds-${APACHEDS_VERSION}.tar.gz && \
 	mv $APACHEDS_DATA /tmpl/ && \
@@ -28,6 +29,7 @@ RUN adduser -S apacheds -h /opt/apacheds -H && \
     chmod u+rx /run.sh
 
 VOLUME /opt/apacheds/instances
+VOLUME /bootstrap
 
 EXPOSE 10389 10636
 
